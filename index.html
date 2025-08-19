@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My One and Only ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styling & Cute Theme */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #fdf6e3; /* A soft, warm background color */
+            display: flex; /* Use flexbox for simple centering */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Make sure it takes up the full viewport height */
+            overflow-x: hidden;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* Container for all content to prevent any overlay issues */
+        .main-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Styles for the different content sections */
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #ffe0b2;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        h1, h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            color: #e57373; /* A soft, loving red */
+        }
+        
+        /* Lock Screen Styling */
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        #password-input {
+            padding: 12px 16px;
+            border: 2px solid #e0c29f;
+            border-radius: 25px;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1em;
+            width: 80%;
+            max-width: 300px;
+            -webkit-appearance: none; /* Fix for mobile input styling */
+            appearance: none;
+        }
+
+        #unlock-button {
+            padding: 12px 24px;
+            border: none;
+            background-color: #e57373;
+            color: white;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #unlock-button:hover {
+            background-color: #d35f5f;
+        }
+        
+        .error-text {
+            color: #d32f2f;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Apology Page Styling */
+        #apology-content-section {
+            background-color: #fff8e1;
+            display: none; /* Starts hidden */
+        }
+
+        .apology-content {
+            max-width: 800px;
+            /* This is the new part for the scrollable letter page */
+            max-height: 70vh; /* Sets a max height for the content */
+            overflow-y: auto; /* Adds a vertical scrollbar when content exceeds the max height */
+            
+            text-align: justify;
+            text-align-last: center; /* Centers the last line */
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .puzzle-clue {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .hidden-trigger {
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            margin-top: 15px;
+        }
+
+        .hidden-trigger:hover {
+            transform: scale(1.1);
+        }
+
+        .click-me {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            color: #e57373;
+            margin-top: 10px;
+        }
+        
+        /* Gallery Page Styling */
+        #gallery-content-section {
+            background-color: #fff;
+            display: none; /* Starts hidden */
+        }
+
+        .polaroid-gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .polaroid {
+            background: #ffffff;
+            padding: 15px 15px 50px 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            transform: rotate(calc(-5deg + var(--rotation) * 10deg)); /* Random-like rotation */
+            cursor: pointer;
+            position: relative;
+            text-align: center;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.1) rotate(0deg);
+            z-index: 10;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .polaroid img {
+            width: 250px;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .polaroid p {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            margin: 0;
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
+            width: 100%;
+        }
+
+        .final-surprise-link {
+            display: block;
+            margin-top: 50px;
+            padding: 15px 30px;
+            background-color: #e57373;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .final-surprise-link:hover {
+            background-color: #d35f5f;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1, h2 {
+                font-size: 2em;
+            }
+            .polaroid img {
+                width: 150px;
+            }
+            .polaroid-gallery {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--
+        This is a single container that holds all the different screen sections.
+        We will only show one section at a time to prevent any hidden elements
+        from blocking the input field or button.
+    -->
+    <div class="main-container">
+
+        <!-- The lock screen is the first thing you see -->
+        <section id="lock-content-section" class="content-section">
+            <h1>I'm so sorry, my love. 💔</h1>
+            <p>You can unlock this message with a secret word only you would know. 🤫</p>
+            <div class="input-container">
+                <input type="text" id="password-input" placeholder="Enter the secret word...">
+                <button id="unlock-button">Unlock ✨</button>
+            </div>
+            <p id="error-message" class="error-text"></p>
+        </section>
+
+        <!-- The apology page starts hidden -->
+        <section id="apology-content-section" class="content-section">
+            <div class="apology-content">
+                <h2>My Heartfelt Apology ❤️‍🩹</h2>
+                <p>
+                    My dearest Preyaaaa, I am sitting here with a heavy heart 😔, trying to find the words to express just how deeply sorry I am for my behavior.  I know that I am the one who caused it. The way I ignored you and spoke to you so rudely was completely and utterly wrong, and I have no excuse for it. Seeing the hurt in your eyes broke my heart into a million tiny pieces. 💔 It's a look I never want to see again, and the thought that I put it there is a pain I can't shake. You are the sunshine in my life, my beautiful ray of light, and I dimmed it with my carelessness. I am so, so sorry. I know that just saying sorry isn’t enough, but please know that my apology is coming from the absolute depths of my soul.
+                </p>
+                <p>
+                    My mind was somewhere else, I was caught up in my own silly problems, and I selfishly let that darkness spill over and touch you. That wasn’t fair to you at all. You deserve my full attention, my kindness, and my respect, always. You deserved a partner who was there for you, not one who was cold and distant. It was a complete failure on my part to recognize your feelings and to prioritize our connection over my own frustrations. I was so wrapped up in my own head that I forgot the most important thing in my life was right there in front of me: you. My actions were a reflection of my own poor state of mind, not of my love for you, which is endless. I promise you, I will never let that happen again.
+                </p>
+                <p>
+                    You are my best friend, my confidante, my biggest cheerleader, and the person who makes me laugh until my stomach hurts. 😂 When you're upset, my world feels off-kilter. The silence between us has been deafening, and I miss the sound of your laughter and the comfort of your presence more than anything. Our bond is so incredibly precious to me, and I would do anything to protect it. I have been thinking about nothing but you and how to make things right. You are my home, my safe place, and I am so sad to have made it feel anything but safe for you. I was a complete idiot, and I truly regret every moment of it.
+                </p>
+                <p>
+                    Moving forward, I want to promise you a few things. First, I will make a conscious effort to communicate better. Instead of retreating into myself, I will talk to you about what’s going on. Second, I will be more mindful of my words and my tone. You deserve to be spoken to with love and kindness, always. Third, I want to listen more. I want to hear your heart and your feelings, and I will be here, truly present, to support you. I want us to be strong together and to work through any challenges that come our way, as a team. I know I have a lot to make up for, and I am ready to do whatever it takes. 💖
+                </p>
+                <p>
+                    Please, my love, find it in your heart to forgive me. I know it might take time, and I am willing to wait. I just want a chance to show you with my actions how much you mean to me and that I will be a better partner for you. My love for you is bigger than any mistake I could ever make, and I hope we can move past this stronger than ever. You are my everything. I love you more than words can say. Forever and ever. Yours always. ✨🥰
+                </p>
+            </div>
+            <div class="puzzle-clue">
+                <p>To find your surprise, you need to find something that always makes you smile. 😊</p>
+                <img src="https://placehold.co/60x60/fdf6e3/fdf6e3?text=Kitten" alt="A tiny kitten icon" class="hidden-trigger" id="kitten-trigger">
+                <p class="click-me">Click the hidden kitten to continue...</p>
+            </div>
+        </section>
+
+        <!-- The Photo Gallery Section starts hidden -->
+        <section id="gallery-content-section" class="content-section">
+            <h2>Your story in Polaroids. 📸</h2>
+            <div class="polaroid-gallery">
+                <!-- Replace the image URLs and data messages with your own! -->
+                <div class="polaroid" style="--rotation: 0;" data-message="A picture is worth a thousand words...">
+                    <img src="resorces/Snapchat-949917210.jpg " alt="A photo of you two.">
+                </div>
+                <div class="polaroid" style="--rotation: 1;" data-message="...But my love for you is worth a million more.">
+                    <img src="resorces/Snapchat-631781990.jpg" alt="A photo of you two.">
+                </div>
+                <div class="polaroid" style="--rotation: -1;" data-message="It's one of my favorites My Gandu!">
+                    <img src="resorces/Snapchat-196726744.jpg " alt="A photo of you two.">
+                </div>
+                <div class="polaroid" style="--rotation: 2;" data-message=" It's when I knew I was so lucky.">
+                    <img src="resorces/IMG_20250721_001654.jpg" alt="A photo of you two.">
+                </div>
+            </div>
+            <a href="#" class="final-surprise-link" target="_blank" style="display: none;">Click here for your final surprise! 🎁</a>
+        </section>
+
+    </div> <!-- End of main-container -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get all the content sections
+            const lockSection = document.getElementById('lock-content-section');
+            const apologySection = document.getElementById('apology-content-section');
+            const gallerySection = document.getElementById('gallery-content-section');
+            
+            // Get the input and button elements
+            const passwordInput = document.getElementById('password-input');
+            const unlockButton = document.getElementById('unlock-button');
+            const errorMessage = document.getElementById('error-message');
+            const kittenTrigger = document.getElementById('kitten-trigger');
+            const polaroids = document.querySelectorAll('.polaroid');
+            const finalSurpriseLink = document.querySelector('.final-surprise-link');
+            
+            // Set your secret word here!
+            const secretWord = "gandu";
+
+            // Function to check the password and change the screen
+            const checkPassword = () => {
+                // If the value is correct, hide the lock screen and show the apology page
+                if (passwordInput.value.toLowerCase().trim() === secretWord) {
+                    lockSection.style.display = 'none';
+                    apologySection.style.display = 'flex';
+                } else {
+                    // Otherwise, show an error message
+                    errorMessage.textContent = "That's not it, silly! Think of our special word. 🤔";
+                }
+            };
+            
+            // We'll use a single event listener for the button click
+            unlockButton.addEventListener('click', checkPassword);
+            
+            // We'll use a single event listener for the "Enter" keypress on the input field
+            passwordInput.addEventListener('keydown', (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // Prevents the default form submission behavior
+                    checkPassword();
+                }
+            });
+
+            // Event listener for the kitten trigger to move to the next section
+            kittenTrigger.addEventListener('click', () => {
+                apologySection.style.display = 'none';
+                gallerySection.style.display = 'flex';
+            });
+
+            // Logic for the polaroids to reveal their messages
+            let clickedCount = 0;
+            polaroids.forEach(polaroid => {
+                polaroid.style.setProperty('--rotation', (Math.random() - 0.5) * 2);
+                polaroid.addEventListener('click', () => {
+                    if (!polaroid.classList.contains('revealed')) {
+                        const message = polaroid.getAttribute('data-message');
+                        const pTag = document.createElement('p');
+                        pTag.textContent = message;
+                        polaroid.appendChild(pTag);
+                        polaroid.classList.add('revealed');
+                        clickedCount++;
+                        if (clickedCount === polaroids.length) {
+                            finalSurpriseLink.style.display = 'block';
+                            finalSurpriseLink.href = "https://youtu.be/ElZfdU54Cp8?si=HBA17mSKgT2Rztun";
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
